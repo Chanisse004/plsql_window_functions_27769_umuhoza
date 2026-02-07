@@ -43,8 +43,12 @@ FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY (product_id) REFERENCES products(product_id));
 
   ER Diagram
-    1           N         N          1
+  
 CUSTOMERS |──────< SALES >──────| PRODUCTS
+
+.One Customer → Many Sales
+
+.One Product → Many Sales
                                   
 
 3) Join queries
