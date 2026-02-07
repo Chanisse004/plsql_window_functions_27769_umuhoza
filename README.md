@@ -45,7 +45,9 @@ FOREIGN KEY (product_id) REFERENCES products(product_id));
   ER Diagram
   
 CUSTOMERS |──────< SALES >──────| PRODUCTS
-     1           N        N          1
+
+     1         N          N            1
+                                  
 
 3) Join queries
    
