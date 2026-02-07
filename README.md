@@ -1,21 +1,29 @@
 SQL window functions
+
 Assignment
+
 Student Names: UMUHOZA chanisse
+
 Student ID: 27769
+
 Group: C
 
 
   1) Problem definition
+     
 This project is based on a consumer electronics retail company in the retail industry. the analysis is conducted by the sales and marketing department to understand sales trend, customer behavior and product performance across regions.  
 
    Data Challenge
+   
 The company stores sales transactions for multiple products and customers across regions, but lacks insight into top selling products, inactive customers, and revenue trends over time. management needs to identify patterns into customer purchasing and product performance to support data driven marketing decisions.
 
  Expected outcome
+ 
 Highlilght inactive customers and underperforming products.
 Identify top performing products by region.
 
  2) Schema
+    
 CREATE TABLE customers(
 customer_id NUMBER PRIMARY KEY,
 customer_name VARCHAR2(100),
@@ -35,6 +43,7 @@ FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
 FOREIGN KEY (product_id) REFERENCES products(product_id));
 
   ER Diagram
+  
 ┌──────────────────┐
 │    CUSTOMERS     │
 ├──────────────────┤
@@ -67,6 +76,7 @@ FOREIGN KEY (product_id) REFERENCES products(product_id));
 └──────────────────┘
 
 3) Join queries
+   
 Shows only transactions where customer and product exist.
 
 SELECT c.customer_name, p.product_name, s.sale_date, s.total_amount
@@ -108,6 +118,7 @@ ON c1.region = c2.region
 AND c1.customer_id <> c2.customer_id;
 
 4) Window function queries
+   
 SELECT p.product_name, c.region, SUM(s.total_amount) AS total_sales, RANK() OVER (PARTITION BY c.region ORDER BY SUM(s.total_amount) DESC) AS rank FROM sales s JOIN customers c ON s.customer_id = c.customer_id JOIN products p ON s.product_id = p.product_id GROUP BY p.product_name, c.region;
 
 
@@ -125,18 +136,21 @@ SELECT customer_id, SUM(total_amount) AS total_spent, NTILE(4) OVER (ORDER BY SU
 SELECT sale_date, total_amount, AVG(total_amount) OVER ( ORDER BY sale_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW ) AS three_month_avg FROM sales;
 
 5) Key insights
+   
    a. Top products per region identified for marketing focus.
    b. customer segmentation shows top quartile drives most revenue.
    c. running totals and growth trends highlight peak and slow months.
    d.inactive customers and unsold products detected for targeted engagement.
    e.regional analysis supports localized marketing campaigns.
 
-6) REFERENCES
+7) REFERENCES
+   
    W3Schools SQL Tutorial – https://www.w3schools.com/sql/
 
    PostgreSQL Window Functions Guide – https://www.postgresql.org/docs/current/tutorial-window.html
 
-7) Integrity statement
+9) Integrity statement
+    
    I did this work myself and all the queries, explanations and screenshots are my own. 
 
 
