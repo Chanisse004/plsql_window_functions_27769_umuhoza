@@ -44,36 +44,8 @@ FOREIGN KEY (product_id) REFERENCES products(product_id));
 
   ER Diagram
   
-┌──────────────────┐
-│    CUSTOMERS     │
-├──────────────────┤
-│ PK customer_id   │
-│ customer_name    │
-│ region           │
-└─────────┬────────┘
-          │ 1
-          │
-          │ N
-┌─────────▼────────┐
-│      SALES       │
-├──────────────────┤
-│ PK sale_id       │
-│ FK customer_id   │
-│ FK product_id    │
-│ sale_date        │
-│ quantity         │
-│ total_amount    │
-└─────────┬────────┘
-          │ N
-          │
-          │ 1
-┌─────────▼────────┐
-│     PRODUCTS     │
-├──────────────────┤
-│ PK product_id    │
-│ product_name     │
-│ price            │
-└──────────────────┘
+CUSTOMERS |──────< SALES >──────| PRODUCTS
+     1           N        N          1
 
 3) Join queries
    
@@ -138,9 +110,13 @@ SELECT sale_date, total_amount, AVG(total_amount) OVER ( ORDER BY sale_date ROWS
 5) Key insights
    
    a. Top products per region identified for marketing focus.
+   
    b. customer segmentation shows top quartile drives most revenue.
+   
    c. running totals and growth trends highlight peak and slow months.
+   
    d.inactive customers and unsold products detected for targeted engagement.
+   
    e.regional analysis supports localized marketing campaigns.
 
 7) REFERENCES
